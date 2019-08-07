@@ -33,11 +33,11 @@ module DataAnon
       end
 
       def self.mongo_uri config_hash
-        if config_hash[:user].nil?
+        if config_hash[:username].nil?
           mongo_uri = "mongodb://#{config_hash[:host]}#{config_hash[:port].nil? ? "" : ":#{config_hash[:port]}"}/#{config_hash[:database]}"
         else
           credentials = "#{config_hash[:username]}:#{config_hash[:password]}"
-          mongo_uri = "mongodb://#{config_hash[:host]}#{config_hash[:port].nil? ? "" : ":#{config_hash[:port]}"}@#{credentials}/#{config_hash[:database]}"
+          mongo_uri = "mongodb://#{credentials}@#{config_hash[:host]}#{config_hash[:port].nil? ? "" : ":#{config_hash[:port]}"}/#{config_hash[:database]}?authSource=admin"
         end
         mongo_uri
       end
